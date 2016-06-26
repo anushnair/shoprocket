@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bottlerocket.androiddevtest.shoprocket.R;
 import com.bottlerocket.androiddevtest.shoprocket.framework.Global;
@@ -32,6 +33,7 @@ public class NearbyStoresFragment extends Fragment {
     RecyclerView               mRecyclerViewStores;
     StoreAdapter               mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
+    TextView                   txtUserMessage;
 
 
     private OnStoreItemClicked mListener;
@@ -52,18 +54,30 @@ public class NearbyStoresFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-
         mRecyclerViewStores = (RecyclerView) mView.findViewById(R.id.recycler_view_stores);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new StoreAdapter(getActivity(), new OnItemClickListener() {
-            @Override
-            public void onItemClicked(Store store) {
-                onStoreSelected(store);
-            }
-        });
+        txtUserMessage = (TextView) mView.findViewById(R.id.txt_user_message);
 
-        mRecyclerViewStores.setLayoutManager(mLayoutManager);
-        mRecyclerViewStores.setAdapter(mAdapter);
+        if (application.getStoreList().size() == 0) {
+
+            txtUserMessage.setText("No stores listed !!!");
+            mRecyclerViewStores.setVisibility(View.GONE);
+
+        } else {
+
+            mLayoutManager = new LinearLayoutManager(getActivity());
+            mAdapter = new StoreAdapter(getActivity(), new OnItemClickListener() {
+                @Override
+                public void onItemClicked(Store store) {
+                    onStoreSelected(store);
+                }
+            });
+
+            mRecyclerViewStores.setLayoutManager(mLayoutManager);
+            mRecyclerViewStores.setAdapter(mAdapter);
+
+            txtUserMessage.setVisibility(View.GONE);
+        }
+
 
     }
 
@@ -95,7 +109,7 @@ public class NearbyStoresFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bottlerocket.androiddevtest.shoprocket.R;
@@ -35,7 +36,8 @@ public class StoreDetailFragment extends Fragment implements OnMapReadyCallback 
     ImageView          imgMakePhoneCall;
     Store              mStore;
     SupportMapFragment mapFragment;
-    TextView txtStorePhoneNumber;
+    TextView           txtStorePhoneNumber;
+    RelativeLayout     rlMakePhoneCall;
 
 
     public StoreDetailFragment() {
@@ -67,12 +69,13 @@ public class StoreDetailFragment extends Fragment implements OnMapReadyCallback 
         txtStoreAddress = (TextView) mView.findViewById(R.id.txt_store_details_address);
         imgMakePhoneCall = (ImageView) mView.findViewById(R.id.img_store_phone_call);
         txtStorePhoneNumber = (TextView) mView.findViewById(R.id.txt_store_details_phone);
+        rlMakePhoneCall = (RelativeLayout) mView.findViewById(R.id.rl_make_phone_call);
 
         txtStoreName.setText(mStore.getName());
         txtStoreAddress.setText(mStore.getAddress() + ",\n" + mStore.getCity() + ",\n" + mStore.getState() + " - " + mStore.getZipCode());
-        txtStorePhoneNumber.setText("Call "+mStore.getPhoneNumber());
+        txtStorePhoneNumber.setText("Call " + mStore.getPhoneNumber());
 
-        imgMakePhoneCall.setOnClickListener(new View.OnClickListener() {
+        rlMakePhoneCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -89,9 +92,9 @@ public class StoreDetailFragment extends Fragment implements OnMapReadyCallback 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.maps);
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.maps);
 
-        if(mapFragment==null){
+        if (mapFragment == null) {
 
             Log.d(TAG, "onActivityCreated: Map Fragment Did not load");
         }

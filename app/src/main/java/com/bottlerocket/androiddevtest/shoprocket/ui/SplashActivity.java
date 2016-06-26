@@ -1,10 +1,14 @@
 package com.bottlerocket.androiddevtest.shoprocket.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -26,6 +30,7 @@ public class SplashActivity extends AppCompatActivity {
 
     ProgressBar mProgressBar;
     Intent      mIntent;
+    TextView txtStatusIndicator;
 
     Global global = Global.getInstance();
 
@@ -35,41 +40,58 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        txtStatusIndicator = (TextView) findViewById(R.id.txt_indicator);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar_store_fetch);
         mProgressBar.setVisibility(View.VISIBLE);
+
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
         mIntent = new Intent(this, MainActivity.class);
 
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                AppConstants.BASE_URL + AppConstants.STORES_URL,
-                null,
-                new Response.Listener<JSONObject>() {
+        if(isConnected){
 
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                    AppConstants.BASE_URL + AppConstants.STORES_URL,
+                    null,
+                    new Response.Listener<JSONObject>() {
 
-                        //                            Log.d(TAG, "onResponse: "+ jsonObject.toString(4));
+                        @Override
+                        public void onResponse(JSONObject jsonObject) {
+
+                            //                            Log.d(TAG, "onResponse: "+ jsonObject.toString(4));
 
 
-                        parseStoreDetails(jsonObject);
+                            parseStoreDetails(jsonObject);
 
-                        mProgressBar.setVisibility(View.GONE);
+                            mProgressBar.setVisibility(View.GONE);
 
-                        startActivity(mIntent);
-                        finish();
+                            startActivity(mIntent);
+                            finish();
 
-                    }
-                },
-                new Response.ErrorListener() {
+                        }
+                    },
+                    new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
 
-                    }
-                });
+                        }
+                    });
 
-        BackendRequestQueue.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+            BackendRequestQueue.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+        }else{
+
+
+            txtStatusIndicator.setText("Unable to connect to Internet. \nPlease make sure your data connection is ON");
+            txtStatusIndicator.setTextColor(getResources().getColor(R.color.red));
+            mProgressBar.setVisibility(View.GONE);
+
+        }
+
 
 
     }

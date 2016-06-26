@@ -65,6 +65,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:id="@+id/rl_make_phone_call"
         android:background="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="4dp">
