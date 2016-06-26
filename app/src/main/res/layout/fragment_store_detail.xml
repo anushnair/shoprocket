@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.bottlerocket.androiddevtest.shoprocket.ui.fragments.StoreDetailFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_store_details"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_curved_gray"
+            android:padding="2dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/txt_store_details_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Store Name"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txt_store_details_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_store_details_name"
+                    android:layout_marginTop="4dp"
+                    android:text="Store Address"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="normal"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_map_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_store_details"
+            android:layout_marginTop="4dp"
+            android:background="@color/colorPrimary"
+            android:padding="2dp">
+
+            <fragment
+                android:id="@+id/maps"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/txt_store_details_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Call"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/img_store_phone_call"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@android:drawable/stat_sys_phone_call"
+            android:layout_centerVertical="true"
+            android:layout_margin="8dp"
+            android:layout_toLeftOf="@id/txt_store_details_phone"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

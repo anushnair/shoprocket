@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/rl_store_logo_container"
+            android:background="@drawable/bg_store_logo">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/img_store_logo"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_store_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/rl_store_logo_container">
+
+            <TextView
+                android:id="@+id/txt_store_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_store_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_store_name"
+                android:layout_marginTop="10dp"
+                android:text="Address"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true">
+
+    </View>
+
+</RelativeLayout>
